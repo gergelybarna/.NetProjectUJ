@@ -21,13 +21,28 @@ namespace AutoWashingProject
 
         private void button1_Click(object sender, EventArgs e)
         {
+            User user = new User();
+
             bool ck = Cheks();
             if (ck == true)
             {
-                MessageBox.Show("Sikeres mentés!");
-                Login f1 = new Login();
-                f1.Show();
-                this.Hide();
+                user.Name = textBox1.Text.ToString();
+                user.Email = textBox3.Text.ToString();
+                user.Password = textBox2.Text.ToString();
+                user.Phone = textBox4.Text.ToString();
+
+                WorkingWithDatabase db = new WorkingWithDatabase();
+                if (db.SaveUser(user))
+                {
+                    MessageBox.Show("Sikeres mentés!");
+                    Login f1 = new Login();
+                    f1.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Sikertelen mentés!");
+                }
             }
         }
 
