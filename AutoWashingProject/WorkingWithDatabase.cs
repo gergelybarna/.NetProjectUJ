@@ -158,16 +158,17 @@ namespace AutoWashingProject
            return isSaved;
         }
 
-       public bool isPlateRegistered(string plate) {
+       public bool isPlateRegistered(string plate, int id) {
 
            bool isRegistered = false;
 
            SqlConnection con = new SqlConnection("Data Source=MASTER\\SQLSERVER;Initial Catalog=auto_washing_database;Integrated Security=True");
            try
            {
-               string oString = "SELECT * FROM Auto WHERE Plate = @Plate";
+               string oString = "SELECT * FROM Auto WHERE Plate = @Plate AND UserId = @Id";
                SqlCommand oCmd = new SqlCommand(oString, con);
                oCmd.Parameters.AddWithValue("@Plate", plate);
+               oCmd.Parameters.AddWithValue("@Id", id);
                con.Open();
                //label1.Text = "Sikerult";
 
@@ -188,6 +189,38 @@ namespace AutoWashingProject
            }
 
            return isRegistered;
+       }
+
+       public List<string> getMyPlates(int id) {
+           List<string> cars = new List<string>();
+
+           SqlConnection con = new SqlConnection("Data Source=MASTER\\SQLSERVER;Initial Catalog=auto_washing_database;Integrated Security=True");
+           try
+           {
+               string oString = "SELECT * FROM Auto WHERE UserId = @Id";
+               SqlCommand oCmd = new SqlCommand(oString, con);
+               oCmd.Parameters.AddWithValue("@Id", id);
+               con.Open();
+               //label1.Text = "Sikerult";
+
+               using (SqlDataReader oReader = oCmd.ExecuteReader())
+               {
+                   while (oReader.Read())
+                   {
+                       cars.Add(oReader["Plate"].ToString());
+                       //isRegistered = true;
+                   }
+
+                   con.Close();
+               }
+
+
+           }
+           catch (Exception)
+           {
+           }
+
+           return cars;
        }
     }
 }

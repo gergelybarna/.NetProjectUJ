@@ -58,7 +58,7 @@ namespace AutoWashingProject
 
         private void button3_Click(object sender, EventArgs e)
         {
-            ServiceReservation f6 = new ServiceReservation();
+            ServiceReservation f6 = new ServiceReservation(user);
             f6.Show();
             this.Hide();
         }

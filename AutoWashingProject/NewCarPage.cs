@@ -50,7 +50,7 @@ namespace AutoWashingProject
             auto.Type = textBoxType.Text.ToString();
 
            
-            if (!wdb.isPlateRegistered(textBoxPlate.Text.ToString()))
+            if (!wdb.isPlateRegistered(textBoxPlate.Text.ToString(), user.Id))
             {
                 if (wdb.saveAuto(auto))
                 {
