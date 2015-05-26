@@ -116,6 +116,7 @@
             this.textBoxBrand.Size = new System.Drawing.Size(150, 20);
             this.textBoxBrand.TabIndex = 6;
             this.textBoxBrand.UseWaitCursor = true;
+            this.textBoxBrand.TextChanged += new System.EventHandler(this.textBoxBrand_TextChanged);
             // 
             // textBoxType
             // 

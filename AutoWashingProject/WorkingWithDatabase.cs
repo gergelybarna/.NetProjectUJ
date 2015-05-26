@@ -13,7 +13,7 @@ using System.Diagnostics;
 
 namespace AutoWashingProject
 {
-    class WorkingWithDatabase
+    public class WorkingWithDatabase
     {
 
         public bool SaveUser(User user)

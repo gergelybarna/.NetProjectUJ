@@ -75,6 +75,7 @@
     <Compile Include="NewCarPage.Designer.cs">
       <DependentUpon>NewCarPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="SendEmail.cs" />
     <Compile Include="WashingReservation.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -23,26 +23,42 @@ namespace AutoWashingProject
         {
             User user = new User();
 
-            bool ck = Cheks();
-            if (ck == true)
+            if (checkIfEmpty())
             {
-                user.Name = textBox1.Text.ToString();
-                user.Email = textBox3.Text.ToString();
-                user.Password = textBox2.Text.ToString();
-                user.Phone = textBox4.Text.ToString();
-
-                WorkingWithDatabase db = new WorkingWithDatabase();
-                if (db.SaveUser(user))
+                if (IsValidEmail(textBoxEmail.Text.ToString().Trim()))
                 {
-                    MessageBox.Show("Sikeres mentés!");
-                    Login f1 = new Login();
-                    f1.Show();
-                    this.Hide();
+                    if (PhoneCheck(textBoxPhone.Text.Trim().ToString())){
+                    user.Name = textBoxName.Text.ToString();
+                    user.Email = textBoxEmail.Text.ToString();
+                    user.Password = textBoxPassword.Text.ToString();
+                    user.Phone = textBoxPhone.Text.ToString();
+
+                    WorkingWithDatabase db = new WorkingWithDatabase();
+                    if (db.SaveUser(user))
+                    {
+                        MessageBox.Show("Sikeres mentés!");
+                        Login f1 = new Login();
+                        f1.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sikertelen mentés!");
+                    }
+                    }else{
+                        MessageBox.Show("Helytelen Telefonszám!");
+                        textBoxPhone.Text = "";
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Sikertelen mentés!");
+                    MessageBox.Show("Helytelen e-mail cím!");
+                    textBoxEmail.Text = "";
                 }
+            }
+            else
+            {
+                MessageBox.Show("Kérem töltsön ki minden mezőt!");
             }
         }
 
@@ -60,58 +76,69 @@ namespace AutoWashingProject
         {
 
         }
-        private bool Cheks() {
-            bool err=false;
-             Regex regexObj = new Regex(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$");
-            if (textBox1.Text.Trim().Length == 0)
-                err = true;
-            if ((textBox2.Text.Trim().Length == 0)&&(isValidEmail(textBox2.Text)==true))
-                err = true;
-            if (textBox3.Text.Trim().Length == 0)
-                err = true;
-            if ((textBox4.Text.Trim().Length == 0)&&(regexObj.IsMatch(textBox4.Text)))
-                err = true;
-            if (err == true)
+      
+        public bool checkIfEmpty()
+        {
+            bool isEmpty = true;
+            if (textBoxName.Text.Trim().Length == 0)
             {
-                MessageBox.Show("Kérem töltsön ki minden mezőt helyesen!");
+                isEmpty = false;
+            }
+
+            if (textBoxEmail.Text.Trim().Length == 0)
+            {
+                isEmpty = false;
+
+            }
+            if (textBoxPassword.Text.Trim().Length == 0)
+            {
+                isEmpty = false;
+
+            }
+
+            if (textBoxPhone.Text.Trim().Length == 0)
+            {
+                isEmpty = false;
+            }
+
+            return isEmpty;
+        }
+
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var mail = new System.Net.Mail.MailAddress(email);
+                return true;
+            }
+            catch
+            {
                 return false;
             }
-            return true;
         }
-        
 
-           
+
+        private bool PhoneCheck(string tString)
+        {
+            bool isok = true;
+            if (tString.Length < 10) isok = false;
+
+            for (int i = 0; i < tString.Length; i++)
+            {
+                if (!char.IsNumber(tString[i]))
+                {
+                  
+                    isok = false;
+                }
+
+            }
+            return isok;
+        }
+
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
-
-        }
-        public bool IsValidPhoneNumber(string number)
-        {
-            Regex regexObj = new Regex(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$");
-
-            if (regexObj.IsMatch(number))
-                return true;
-            return false;
-        }
-        public bool isValidEmail(string email)
-        {
-            if (email.Equals(""))
-            {
-                return false;
-            }
-            else
-            {
-                try
-                {
-                    MailAddress m = new MailAddress(email);
-                    return true;
-                }
-                catch (FormatException)
-                {
-                    return false;
-                }
-            }
 
         }
 

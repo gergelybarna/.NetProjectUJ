@@ -134,6 +134,12 @@
             // 
             this.textBoxProblem.Location = new System.Drawing.Point(135, 209);
             this.textBoxProblem.Multiline = true;
+            this.textBoxProblem.Name = "textBox1";
+            this.textBoxProblem.Size = new System.Drawing.Size(198, 50);
+            this.textBoxProblem.TabIndex = 19;
+            this.textBoxProblem.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBoxProblem.Location = new System.Drawing.Point(135, 209);
+            this.textBoxProblem.Multiline = true;
             this.textBoxProblem.Name = "textBoxProblem";
             this.textBoxProblem.Size = new System.Drawing.Size(198, 50);
             this.textBoxProblem.TabIndex = 19;

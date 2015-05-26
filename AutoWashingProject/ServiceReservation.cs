@@ -14,11 +14,13 @@ namespace AutoWashingProject
     {
         public User user;
         WorkingWithDatabase db;
+        Reservation res;
 
         public ServiceReservation(User user)
         {
             InitializeComponent();
             db = new WorkingWithDatabase();
+            res = new Reservation();
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = "yyyy/MM/dd - hh:mm";
             button1.Hide();
@@ -47,11 +49,15 @@ namespace AutoWashingProject
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (Check()) MessageBox.Show(dateTimePicker1.Value.ToString("yyyy-MM-dd") + " ez");
             saveReservation();
             CenterPage f3 = new CenterPage(user);
             f3.Show();
             this.Hide();
+            SendEmail sm = new SendEmail();
+            sm.Send(user, res, comboBox1.Text);
             //MessageBox.Show("");
+
         }
 
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
@@ -84,7 +90,6 @@ namespace AutoWashingProject
 
         public void saveReservation()
         {
-            Reservation res = new Reservation();
             string text = comboBox1.Text;
             int autoId = 0;
 
@@ -98,7 +103,7 @@ namespace AutoWashingProject
 
                 db.saveDate(res);
 
-                MessageBox.Show("A foglalás sikeresen! Amennyiben vissza szeretné vonni, kérem jelezze telefonon!");
+                MessageBox.Show("A foglalás sikeres! Amennyiben vissza szeretné vonni, kérem jelezze telefonon!");
             }
             else
             {
@@ -112,12 +117,30 @@ namespace AutoWashingProject
             foreach (DateTime d in dates){
                 if (d.Day == dateSelected.Day && d.Year == dateSelected.Year
                     && d.Month == dateSelected.Month) {
-                        if (d.Hour == dateSelected.Hour || d.Hour == (dateSelected.Hour - 1)) {
-                            isFree = false;
+                        if (dateSelected.Year >= DateTime.Today.Year && dateSelected.Month >= DateTime.Today.Month &&
+                            dateSelected.Day > DateTime.Today.Day)
+                        {
+                            if (d.Hour == dateSelected.Hour || d.Hour == (dateSelected.Hour - 1))
+                            {
+                                isFree = false;
+                            }
                         }
                 }
             }
             return isFree;
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private bool Check() {
+            if (textBoxProblem.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("Kérem töltse ki a probléma mezőt!");
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutoWashingProject
 {
-    class Reservation
+    public class Reservation
     {
         int id, autoId, reservationType;
         DateTime date;
