@@ -76,19 +76,18 @@
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(241, 138);
+            this.button1.Location = new System.Drawing.Point(246, 138);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(46, 45);
             this.button1.TabIndex = 3;
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.UseWaitCursor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
             this.button2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button2.Location = new System.Drawing.Point(198, 307);
+            this.button2.Location = new System.Drawing.Point(223, 307);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(90, 31);
             this.button2.TabIndex = 4;
@@ -101,7 +100,7 @@
             // 
             this.button3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button3.Location = new System.Drawing.Point(198, 381);
+            this.button3.Location = new System.Drawing.Point(223, 381);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(90, 31);
             this.button3.TabIndex = 5;
@@ -166,9 +165,9 @@
             this.Controls.Add(this.textBoxPlate);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "NewCarPage";
             this.Text = "Auto Mosás & Szerviz";
-            this.UseWaitCursor = true;
             this.Load += new System.EventHandler(this.NewCarPage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

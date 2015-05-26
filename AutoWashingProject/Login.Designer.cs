@@ -50,7 +50,6 @@
             this.Registration.TabIndex = 0;
             this.Registration.TabStop = true;
             this.Registration.Text = "Regisztráció";
-            this.Registration.UseWaitCursor = true;
             this.Registration.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Registration_LinkClicked);
             // 
             // label1
@@ -63,7 +62,6 @@
             this.label1.Size = new System.Drawing.Size(54, 18);
             this.label1.TabIndex = 1;
             this.label1.Text = "E-mail:";
-            this.label1.UseWaitCursor = true;
             // 
             // textBox1
             // 
@@ -72,7 +70,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(170, 20);
             this.textBox1.TabIndex = 2;
-            this.textBox1.UseWaitCursor = true;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // button1
@@ -85,7 +82,6 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "Belépés";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.UseWaitCursor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
@@ -98,7 +94,6 @@
             this.label2.Size = new System.Drawing.Size(122, 20);
             this.label2.TabIndex = 4;
             this.label2.Text = "Bejelentkezés";
-            this.label2.UseWaitCursor = true;
             // 
             // label3
             // 
@@ -110,7 +105,6 @@
             this.label3.Size = new System.Drawing.Size(52, 18);
             this.label3.TabIndex = 5;
             this.label3.Text = "Jelszó";
-            this.label3.UseWaitCursor = true;
             // 
             // textBox2
             // 
@@ -121,7 +115,6 @@
             this.textBox2.PasswordChar = '*';
             this.textBox2.Size = new System.Drawing.Size(170, 20);
             this.textBox2.TabIndex = 6;
-            this.textBox2.UseWaitCursor = true;
             // 
             // Login
             // 
@@ -137,9 +130,9 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Registration);
+            this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.Name = "Login";
             this.Text = "Auto Mosás & Szerviz";
-            this.UseWaitCursor = true;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

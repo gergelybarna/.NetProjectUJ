@@ -51,7 +51,7 @@ namespace AutoWashingProject
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form f5 = new WashingReservation();
+            Form f5 = new WashingReservation(user);
             f5.Show();
             this.Hide();
         }
