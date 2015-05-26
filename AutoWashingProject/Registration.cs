@@ -60,58 +60,43 @@ namespace AutoWashingProject
         {
 
         }
-        private bool Cheks() {
-            bool err=false;
-             Regex regexObj = new Regex(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$");
-            if (textBox1.Text.Trim().Length == 0)
-                err = true;
-            if ((textBox2.Text.Trim().Length == 0)&&(isValidEmail(textBox2.Text)==true))
-                err = true;
-            if (textBox3.Text.Trim().Length == 0)
-                err = true;
-            if ((textBox4.Text.Trim().Length == 0)&&(regexObj.IsMatch(textBox4.Text)))
-                err = true;
-            if (err == true)
+        private bool Cheks()
+        {
+            if ((textBox1.Text.Trim().Length == 0) && (textBox2.Text.Trim().Length == 0) && (textBox3.Text.Trim().Length == 0)
+              && (textBox4.Text.Trim().Length == 0))
             {
-                MessageBox.Show("Kérem töltsön ki minden mezőt helyesen!");
+                MessageBox.Show("Kérem töltsön ki minden mezőt!");
                 return false;
             }
-            return true;
-        }
-        
+            if (textBox4.Text.Trim().Length < 10)
+                return false;
+            else
+            {
+                string tString = textBox4.Text;
+                for (int i = 0; i < tString.Length; i++)
+                {
+                    if (!char.IsNumber(tString[i]))
+                    {
+                        MessageBox.Show("Helytelen Telefonszám!");
+                        textBox4.Text = "";
+                        return false;
+                    }
 
-           
+                }
+            }
+            if (!textBox2.Text.Trim().Equals("@"))
+            {
+                MessageBox.Show("Helytelen E-mailcim!");
+                return false;
+            }
+        return true;
+        }
+
+
+
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
-
-        }
-        public bool IsValidPhoneNumber(string number)
-        {
-            Regex regexObj = new Regex(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$");
-
-            if (regexObj.IsMatch(number))
-                return true;
-            return false;
-        }
-        public bool isValidEmail(string email)
-        {
-            if (email.Equals(""))
-            {
-                return false;
-            }
-            else
-            {
-                try
-                {
-                    MailAddress m = new MailAddress(email);
-                    return true;
-                }
-                catch (FormatException)
-                {
-                    return false;
-                }
-            }
 
         }
 

@@ -44,7 +44,7 @@ namespace AutoWashingProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(dateTimePicker1.Value.ToString("yyyy-MM-dd") + " ez");
+            if (Check()) MessageBox.Show(dateTimePicker1.Value.ToString("yyyy-MM-dd") + " ez");
         }
 
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
@@ -66,6 +66,19 @@ namespace AutoWashingProject
                 comboBox1.Items.Add(p);
             }
             
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private bool Check() {
+            if (textBox1.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("Kérem töltse ki a probléma mezőt!");
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -54,9 +54,12 @@ namespace AutoWashingProject
             {
                 if (wdb.saveAuto(auto))
                 {
-                    this.Hide();
-                    CenterPage f3 = new CenterPage(user);
-                    f3.Show();
+                    if (Check())
+                    {
+                        this.Hide();
+                        CenterPage f3 = new CenterPage(user);
+                        f3.Show();
+                    }
                 }
                 else
                 {
@@ -76,6 +79,20 @@ namespace AutoWashingProject
         }
 
         private void NewCarPage_Load(object sender, EventArgs e)
+        {
+
+        }
+        private bool Check() {
+            if ((textBoxType.Text.Trim().Length == 0) && (textBoxBrand.Text.Trim().Length == 0) && (textBoxPlate.Text.Trim().Length == 0))
+            {
+                MessageBox.Show("Kérem töltsön ki minden mezőt!");
+                return false;
+
+            }
+            return true;
+        }
+
+        private void textBoxBrand_TextChanged(object sender, EventArgs e)
         {
 
         }
