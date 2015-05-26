@@ -219,8 +219,124 @@ namespace AutoWashingProject
            catch (Exception)
            {
            }
-
            return cars;
+       }
+
+
+       public List<DateTime> getMyDates(int type)
+       {
+           List<DateTime> dates = new List<DateTime>();
+           DateTime dateFacturation;
+           SqlConnection con = new SqlConnection("Data Source=MASTER\\SQLSERVER;Initial Catalog=auto_washing_database;Integrated Security=True");
+           try
+           {
+               string oString = "SELECT * FROM Reservation WHERE ReservationType = @Type";
+               SqlCommand oCmd = new SqlCommand(oString, con);
+               oCmd.Parameters.AddWithValue("@Type", type);
+               con.Open();
+               //label1.Text = "Sikerult";
+
+               using (SqlDataReader oReader = oCmd.ExecuteReader())
+               {
+                   while (oReader.Read())
+                   {
+
+                       int colIndex = oReader.GetOrdinal("Date");
+                       dateFacturation = oReader.GetDateTime(colIndex);
+                       dates.Add(dateFacturation);
+                       System.Diagnostics.Debug.WriteLine("date " + dateFacturation);
+                       //dates.Add(oReader["Date"].ToString());
+                       //isRegistered = true;
+
+                       //DateTime date = oReader.GetDateTime("");
+                   }
+
+                   con.Close();
+               }
+
+           }
+           catch (Exception ex)
+           {
+               System.Diagnostics.Debug.WriteLine("Exeption 2 " + ex.Message);
+           }
+           return dates;
+       }
+            
+
+       public bool saveDate(Reservation res)
+       {
+           bool isSaved = false;
+           SqlConnection con = new SqlConnection("Data Source=MASTER\\SQLSERVER;Initial Catalog=auto_washing_database;Integrated Security=True");
+           try
+           {
+               con.Open();
+               //label1.Text = "Sikerult";
+
+               var sql = @"INSERT INTO Reservation (AutoId, Date, ReservationType, Problem) VALUES (@AutoId, @Date, @Type, @Problem)";
+
+
+               using (var cmd = new SqlCommand(sql, con))
+               {
+
+                   cmd.Parameters.AddWithValue("@AutoId", res.AutoId);
+                   cmd.Parameters.AddWithValue("@Date", res.Date);
+                   cmd.Parameters.AddWithValue("@Type", res.ReservationType);
+                   cmd.Parameters.AddWithValue("@Problem", res.Problem);
+                   //System.Diagnostics.Debug.WriteLine(user.Phone);
+
+                   try
+                   {
+                       int rowsAffected = cmd.ExecuteNonQuery();
+                       if (0 < rowsAffected) isSaved = true;
+                   }
+                   catch (SqlException ex)
+                   {
+                       System.Diagnostics.Debug.WriteLine("Exeption " +ex.Message);
+                       // It is almost prefered to let the exception be thrown freely
+                       // so that you may have its full stack trace and have more 
+                       // details on your error.
+                   }
+                   finally
+                   {
+                       if (con.State == ConnectionState.Open) con.Close();
+                   }
+               }
+           }
+           catch (Exception ex)
+           {
+               System.Diagnostics.Debug.WriteLine("Exeption 2 " + ex.Message);
+           }
+           return isSaved;
+       }
+
+       public int getAutoIdByPlate(string plate) {
+
+           int autoId = 0;
+           SqlConnection con = new SqlConnection("Data Source=MASTER\\SQLSERVER;Initial Catalog=auto_washing_database;Integrated Security=True");
+           try
+           {
+               string oString = "SELECT * FROM Auto WHERE Plate = @Plate";
+               SqlCommand oCmd = new SqlCommand(oString, con);
+               oCmd.Parameters.AddWithValue("@Plate", plate);
+               con.Open();
+               //label1.Text = "Sikerult";
+
+               using (SqlDataReader oReader = oCmd.ExecuteReader())
+               {
+                   while (oReader.Read())
+                   {
+                       int.TryParse(oReader["Id"].ToString(), out autoId);
+                       //isRegistered = true;
+                   }
+
+                   con.Close();
+               }
+
+           }
+           catch (Exception)
+           {
+           }
+           return autoId;
        }
     }
 }

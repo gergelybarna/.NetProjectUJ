@@ -13,9 +13,12 @@ namespace AutoWashingProject
     public partial class ServiceReservation : Form
     {
         public User user;
+        WorkingWithDatabase db;
+
         public ServiceReservation(User user)
         {
             InitializeComponent();
+            db = new WorkingWithDatabase();
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = "yyyy/MM/dd - hh:mm";
             button1.Hide();
@@ -30,7 +33,7 @@ namespace AutoWashingProject
 
         private void button3_Click(object sender, EventArgs e)
         {
-            CenterPage f3 = new CenterPage();
+            CenterPage f3 = new CenterPage(user);
             f3.Show();
             this.Hide();
 
@@ -44,7 +47,11 @@ namespace AutoWashingProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(dateTimePicker1.Value.ToString("yyyy-MM-dd") + " ez");
+            saveReservation();
+            CenterPage f3 = new CenterPage(user);
+            f3.Show();
+            this.Hide();
+            //MessageBox.Show("");
         }
 
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
@@ -54,18 +61,63 @@ namespace AutoWashingProject
 
         private void buttonCheck_Click(object sender, EventArgs e)
         {
-            button1.Show();
+            List<DateTime> dates = db.getMyDates(1);
+            if (checkIfIsFree(dates))
+            {
+                MessageBox.Show("Az időpont szabad!");
+                button1.Show();
+            }
+            else {
+                MessageBox.Show("Az időpont foglalt, kérem válasszon más időpontot!");
+            }
+
         }
 
         public void fillComboBox(){
-            WorkingWithDatabase db = new WorkingWithDatabase();
             List<string> plates = new List<string>();
             plates = db.getMyPlates(user.Id);
             //MessageBox.Show(plates.Count()+"");
             foreach (string p in plates){
                 comboBox1.Items.Add(p);
             }
-            
+        }
+
+        public void saveReservation()
+        {
+            Reservation res = new Reservation();
+            string text = comboBox1.Text;
+            int autoId = 0;
+
+            if (text.Length != 0)
+            {
+                autoId = db.getAutoIdByPlate(text);
+                res.AutoId = autoId;
+                res.Date = dateTimePicker1.Value;
+                res.Problem = textBoxProblem.Text.ToString();
+                res.ReservationType = 1;
+
+                db.saveDate(res);
+
+                MessageBox.Show("A foglalás sikeresen! Amennyiben vissza szeretné vonni, kérem jelezze telefonon!");
+            }
+            else
+            {
+                MessageBox.Show("Kérem válasszon ki egy rendszámot!");
+            }
+        }
+
+        public bool checkIfIsFree(List<DateTime> dates) {
+            bool isFree = true;
+            DateTime dateSelected = dateTimePicker1.Value;
+            foreach (DateTime d in dates){
+                if (d.Day == dateSelected.Day && d.Year == dateSelected.Year
+                    && d.Month == dateSelected.Month) {
+                        if (d.Hour == dateSelected.Hour || d.Hour == (dateSelected.Hour - 1)) {
+                            isFree = false;
+                        }
+                }
+            }
+            return isFree;
         }
     }
 }

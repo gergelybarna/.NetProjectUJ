@@ -37,7 +37,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxProblem = new System.Windows.Forms.TextBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.buttonCheck = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -45,13 +45,13 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button3.Cursor = System.Windows.Forms.Cursors.Default;
             this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.Location = new System.Drawing.Point(12, 91);
+            this.button3.Location = new System.Drawing.Point(38, 151);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(46, 45);
             this.button3.TabIndex = 17;
             this.button3.UseVisualStyleBackColor = false;
-            this.button3.UseWaitCursor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
@@ -130,13 +130,13 @@
             this.label4.TabIndex = 18;
             this.label4.Text = "Probléma leírása:";
             // 
-            // textBox1
+            // textBoxProblem
             // 
-            this.textBox1.Location = new System.Drawing.Point(135, 209);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(198, 50);
-            this.textBox1.TabIndex = 19;
+            this.textBoxProblem.Location = new System.Drawing.Point(135, 209);
+            this.textBoxProblem.Multiline = true;
+            this.textBoxProblem.Name = "textBoxProblem";
+            this.textBoxProblem.Size = new System.Drawing.Size(198, 50);
+            this.textBoxProblem.TabIndex = 19;
             // 
             // dateTimePicker1
             // 
@@ -166,7 +166,7 @@
             this.ClientSize = new System.Drawing.Size(493, 476);
             this.Controls.Add(this.buttonCheck);
             this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxProblem);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -193,7 +193,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxProblem;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Button buttonCheck;
     }
